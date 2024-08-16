@@ -1,0 +1,109 @@
+spring:
+  jpa:
+    open-in-view: false
+  profiles:
+    active: development
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: ON_PARAM
+management:
+  endpoints:
+    show-details: always
+    web:
+      base-path: /app/actuator
+  health:
+    mail:
+      enabled: false
+springdoc:
+  swagger-ui:
+    path: /app/swagger-ui/index.html
+  api-docs:
+    path: /app/v3/api-docs
+logging:
+  config: 'classpath:log4j2.yaml'
+  level:
+    com.app.beatbong: ${APP_LOG_LEVEL:INFO}
+---
+spring:
+  profiles: development
+  datasource-write:
+    jdbcUrl: jdbc:mysql://localhost:3306/techstore
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${USERNAME:laksh}
+    password: ${PASSWORD:root}
+    maximum-pool-size: 20
+  datasource-read:
+    jdbcUrl: jdbc:mysql://localhost:3306/techstore
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${USERNAME:laksh}
+    password: ${PASSWORD:root}
+    maximum-pool-size: 20
+  jpa:
+    database: MYSQL
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        ddl-auto: none
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl:
+          auto: none
+  jwt:
+    secret: ${SECRETE:12345jhakdjfjkcjkhfdjkvlsfhblhvbalsdfblvbajksdbfjkbvjkdjsglfgaflsdhgljhcvljSHDvljcvlSJDHvljvc}
+    expirationTime: ${EXPIRATION_TIME:600000000}
+---
+spring:
+  profiles: container
+  datasource-write:
+    jdbcUrl: jdbc:mysql://localhost:3306/techstore
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${USERNAME:laksh}
+    password: ${PASSWORD:root}
+    hikari:
+      maximum-pool-size: 20
+  datasource-read:
+    jdbcUrl: jdbc:mysql://localhost:3306/techstore
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${USERNAME:laksh}
+    password: ${PASSWORD:root}
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    database: MYSQL
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        ddl-auto: none
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl:
+          auto: none
+  jwt:
+    secret: ${SECRETE:12345}
+    expirationTime: ${EXPIRATION_TIME:6000000}
+---
+spring:
+  profiles: test
+  datasource-write:
+    jdbcUrl: jdbc:h2:mem:techstore
+    driverClassName: org.h2.Driver
+  datasource-read:
+    jdbcUrl: jdbc:h2:mem:techstore
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      path: /h2
+      enabled: true
+  jpa:
+    database: H2
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        hbm2ddl: update
+  jwt:
+    secret: {12345}
+    expirationTime: ${EXPIRATION_TIME:6000000}

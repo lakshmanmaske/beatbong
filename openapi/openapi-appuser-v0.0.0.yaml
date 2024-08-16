@@ -1,0 +1,85 @@
+openapi: 3.0.1
+info:
+  title: App user API
+  version: 0.0.0
+tags:
+  - name: appUser
+    description: create/update/delete/fetch app user
+    externalDocs:
+      description: Functional wireframes
+      url: https://app.zeplin.io
+
+paths:
+  /app/user/login/{userId}:
+    get:
+      tags:
+        - user
+      summary: Gets user info by id
+      operationId: getUser
+      parameters:
+        - $ref: 'domains.yaml#/components/parameters/User'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/UserInfoResponse'
+        400:
+          description: request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/ErrorModel'
+  /app/user/login:
+    post:
+      tags:
+        - user
+      summary: Login user
+      operationId: login
+      requestBody:
+        description: Login request body
+        content:
+          application/json:
+            schema:
+              $ref: 'domains.yaml#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/LoginResponse'
+        405:
+          description: request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/ErrorModel'
+  /app/user/sign-up:
+    post:
+      tags:
+        - user
+      summary: Sign-Up user
+      operationId: signUp
+      requestBody:
+        description: Sign-Up request body
+        content:
+          application/json:
+            schema:
+              $ref: 'domains.yaml#/components/schemas/SignUpRequest'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/SignUpResponse'
+        405:
+          description: request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: 'domains.yaml#/components/schemas/ErrorModel'

@@ -1,0 +1,11 @@
+{
+  "library": "spring-boot",
+  "hideGenerationTimestamp": "false",
+  "interfaceOnly": "true",
+  "useTags": "true",
+  "modelNameSuffix": "JSON",
+  "apiPackage": "com.app.beatbong.gen.json",
+  "modelpackage": "com.app.beatbong.gen.json.model",
+  "dateLibrary": "java11",
+  "java11": "true"
+}

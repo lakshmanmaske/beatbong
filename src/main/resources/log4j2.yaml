@@ -1,0 +1,26 @@
+Configuration:
+  name: Default
+  Properties:
+    Property:
+      name: log-path
+      value: 'beatbong'
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{ISO8601} %-5p [%t] [%c] %m%n"
+
+  Loggers:
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: Console_Appender
+
+    Logger:
+      - name: com.app.beatbong
+        additivity: false
+        level: DEBUG
+        AppenderRef:
+          - ref: Console_Appender

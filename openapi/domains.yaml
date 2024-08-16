@@ -1,0 +1,174 @@
+openapi: 3.0.1
+info:
+  title: BMS api
+  version: 0.0.0
+paths:
+components:
+  parameters:
+    User:
+      in: path
+      name: userId
+      description: id of the user
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 100
+        example: user123
+    UserId:
+      in: path
+      name: userId
+      description: unique id of the user
+      required: true
+      schema:
+        type: string
+        example: abcd
+  schemas:
+    ErrorModel:
+      type: object
+      deprecated: false
+      properties:
+        error:
+          type: object
+          deprecated: false
+          properties:
+            timeStamp:
+              type: string
+              description: error description
+              format: date-time
+            status:
+              type: integer
+              description: the http status
+            code:
+              type: integer
+              description: unique identifier of the error
+            message:
+              type: string
+              description: error message
+            details:
+              type: array
+              items:
+                $ref: 'domains.yaml#/components/schemas/ErrorDetail'
+          required:
+            - timestamp
+            - status
+            - code
+            - message
+    ErrorDetail:
+      type: object
+      properties:
+        message:
+          type: string
+          description: details of the error
+      required:
+        - message
+    UserInfoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      required:
+        - userName
+        - firstName
+        - email
+    SignUpRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        roleId:
+          type: integer
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+        - username
+        - roleId
+    Address:
+      type: object
+      properties:
+        houseNumber:
+          type: string
+        street:
+          type: string
+        landmark:
+          type: string
+        village:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        pinCode:
+          type: integer
+        state:
+          type: string
+        country:
+          type: string
+      required:
+        - state
+        - country
+    SignUpResponse:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - email
+        - role
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        token:
+          type: string
+      required:
+        - id
+        - firstName
+        - lastName
+        - token
+        - email
